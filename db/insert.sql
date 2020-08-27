@@ -1,0 +1,1 @@
+insert into items(id, name) values (default, 'create database'), (default, 'find information about jdbc');
