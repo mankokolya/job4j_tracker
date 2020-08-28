@@ -12,7 +12,7 @@ public class DeleteItem implements UserAction {
         if (tracker.delete(id)) {
             System.out.println("Item with id: " + id + " was deleted from tracker");
         } else {
-            System.out.println("Item with id: " + id + "wasn't found in the tracker.");
+            System.out.println("Item with id: " + id + " wasn't found in the tracker.");
         }
         return true;
     }

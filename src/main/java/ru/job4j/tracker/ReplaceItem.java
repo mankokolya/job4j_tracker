@@ -12,7 +12,7 @@ public class ReplaceItem implements UserAction {
         String name = input.askStr("Enter a new name: ");
         Item item = new Item(name);
         if (tracker.replace(id, item)) {
-            System.out.println("Item with id: " + id + " was replaced by the item " + item.getId());
+            System.out.println("Item with id: " + id + " was replaced by the item " + item.getName());
         } else {
             System.out.println("Item with id: " + id + "wasn't found in the tracker.");
         }
