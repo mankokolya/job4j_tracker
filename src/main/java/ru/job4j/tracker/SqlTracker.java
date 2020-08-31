@@ -30,8 +30,10 @@ public class SqlTracker implements Store {
         String insert = "insert into items(name) values (?) returning id";
         try (PreparedStatement statement = connection.prepareStatement(insert)) {
             statement.setString(1, item.getName());
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.close();
+            try(ResultSet resultSet = statement.executeQuery()) {
+                resultSet.next();
+                item.setId(resultSet.getString("id"));
+            }
         } catch (SQLException throwable) {
             throwable.printStackTrace(
             );
