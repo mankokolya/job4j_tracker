@@ -9,6 +9,10 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection connection;
 
+    SqlTracker(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public void init() {
         try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
@@ -27,18 +31,20 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        String insert = "insert into items(name) values (?) returning id";
-        try (PreparedStatement statement = connection.prepareStatement(insert)) {
+        String insert = "insert into items(name) values (?)";
+        try (final PreparedStatement statement = this.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
-            try(ResultSet resultSet = statement.executeQuery()) {
-                resultSet.next();
-                item.setId(resultSet.getString("id"));
+            statement.executeUpdate();
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    item.setId(resultSet.getString("id"));
+                    return item;
+                }
             }
         } catch (SQLException throwable) {
-            throwable.printStackTrace(
-            );
+            throwable.printStackTrace();
         }
-        return item;
+        throw new IllegalStateException("Could not create new user");
     }
 
     @Override
