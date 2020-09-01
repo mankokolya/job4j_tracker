@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class SqlTrackerTest {
 
     public Connection init() {
-        try(InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -24,20 +24,22 @@ public class SqlTrackerTest {
             );
         } catch (Exception e) {
             e.printStackTrace();
-        } throw new IllegalStateException();
+        }
+        throw new IllegalStateException();
     }
 
     @Test
     public void createItem() throws Exception {
-        try(SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
             tracker.add(new Item("desc"));
             List<Item> list = tracker.findByName("desc");
             assertThat(tracker.findByName("desc").size(), is(1));
         }
     }
+
     @Test
     public void findById() throws Exception {
-        try(SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
             assertThat(tracker.findById("1").getName(), is("Learn Git"));
         }
     }

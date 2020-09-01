@@ -9,7 +9,8 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection connection;
 
-    SqlTracker(){}
+    SqlTracker() {
+    }
 
     SqlTracker(Connection connection) {
         this.connection = connection;
