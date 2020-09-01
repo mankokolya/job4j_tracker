@@ -1,0 +1,1 @@
+insert into items values (default, 'Learn Git')

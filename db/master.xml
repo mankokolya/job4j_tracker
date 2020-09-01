@@ -8,4 +8,5 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <include file="C:/projects/job4j_tracker/db/scripts/update_001.sql" relativeToChangelogFile="true"/>
+    <include file="C:/projects/job4j_tracker/db/scripts/update_002.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
