@@ -38,21 +38,21 @@ public class SqlTrackerTest {
     @Test
     public void findById() throws Exception {
         try(SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
-            assertThat(tracker.findById("3").getName(), is("Learn Git"));
+            assertThat(tracker.findById("1").getName(), is("Learn Git"));
         }
     }
 
     @Test
     public void deleteItem() throws Exception {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
-            assertTrue(tracker.delete("3"));
+            assertTrue(tracker.delete("1"));
         }
     }
 
     @Test
     public void replace() throws Exception {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
-            assertTrue(tracker.replace("3", new Item("Learn SQL")));
+            assertTrue(tracker.replace("1", new Item("Learn SQL")));
         }
     }
 }
